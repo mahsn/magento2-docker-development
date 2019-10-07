@@ -107,7 +107,7 @@ services:
     image: 00f100/magento-php-fpm:7.2.20-alpine
     container_name: magento2-php-fpm-xdebug
     ports:
-      - 9000:9000
+      - 9002:9002
     depends_on:
       - magento2-database
     links:
