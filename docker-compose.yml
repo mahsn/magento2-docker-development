@@ -17,7 +17,7 @@ services:
   # PHPMyAdmin
   magento2-phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: magento2-phpmyadmin
+    container_name: magento23-phpmyadmin
     ports:
       - 8080:80
     depends_on:

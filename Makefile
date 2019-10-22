@@ -16,8 +16,8 @@ create-dirs:
 clone-magento2:
 	git clone --branch 2.3-develop --depth=1 https://github.com/magento/magento2.git magento2;
 
-magento-setup-install:
-	docker container run -it --rm --user www-data -v $(PWD)/.docker/php/cli/php.ini:/opt/php/lib/php.ini -v $(PWD)/magento2:/var/www/html --network net_magento2 00f100/magento-php-cli:7.2.20-alpine sh -c "composer install; bin/magento setup:install --admin-firstname=Admin --admin-lastname=Develop --admin-email=localhost@example.com --admin-user=admin --admin-password=123123q --base-url=http://localhost.magento.com --backend-frontname=admin --db-host=magento2-database --db-name=magento2 --db-user=root --db-password=root --use-rewrites=1 --use-secure=1 --base-url-secure=https://localhost.magento.com --use-secure-admin=1 "
+# magento-setup-install:
+# 	docker container run -it --rm --user www-data -v $(PWD)/.docker/php/cli/php.ini:/opt/php/lib/php.ini -v $(PWD)/magento2:/var/www/html --network net_magento2 00f100/magento-php-cli:7.2.20-alpine sh -c "composer install; bin/magento setup:install --admin-firstname=Admin --admin-lastname=Develop --admin-email=localhost@example.com --admin-user=admin --admin-password=123123q --base-url=http://localdev.magento23.com --backend-frontname=admin --db-host=magento2-database --db-name=magento2 --db-user=root --db-password=root --use-rewrites=1 --use-secure=1 --base-url-secure=https://localdev.magento23.com --use-secure-admin=1 "
 
 npm-install:
 	docker container run -it --rm --user www-data -v $(PWD)/.docker/php/cli/php.ini:/opt/php/lib/php.ini -v $(PWD)/magento2:/var/www/html --network net_magento2 00f100/magento-php-cli:7.2.20-alpine sh -c "npm install; cp Gruntfile.js.sample Gruntfile.js; cp grunt-config.json.sample grunt-config.json; sed -i -e 's/local-themes/themes/g' grunt-config.json; cp package.json.sample package.json;"
@@ -29,8 +29,8 @@ console:
 	docker container run -it --rm --user www-data -v $(PWD)/.docker/php/cli/php.ini:/opt/php/lib/php.ini -v $(PWD)/magento2:/var/www/html --network net_magento2 00f100/magento-php-cli:7.2.20-alpine
 
 fix-hosts:
-	sudo sed -i -e '/127.0.0.1 localhost.magento.com/d' /etc/hosts;
-	sudo bash -c "echo \"127.0.0.1 localhost.magento.com\" >> /etc/hosts";
+	sudo sed -i -e '/127.0.0.1 localdev.magento23.com/d' /etc/hosts;
+	sudo bash -c "echo \"127.0.0.1 localdev.magento23.com\" >> /etc/hosts";
 
 docker-nice:
 	sudo renice -20 $(shell pidof dockerd);
@@ -41,7 +41,7 @@ tunning:
 	docker update --cpu-shares $(shell nproc) --cpus $(shell nproc) magento2-php-fpm-pool2;
 	docker update --cpu-shares $(shell nproc) --cpus $(shell nproc) magento2-php-fpm-pool3;
 	docker update --cpu-shares $(shell nproc) --cpus $(shell nproc) magento2-database;
-	docker update --cpu-shares $(shell nproc) --cpus $(shell nproc) magento2-phpmyadmin;
+	docker update --cpu-shares $(shell nproc) --cpus $(shell nproc) magento23-phpmyadmin;
 	docker update --cpu-shares $(shell nproc) --cpus $(shell nproc) magento2-nginx;
 
 clean-install:
