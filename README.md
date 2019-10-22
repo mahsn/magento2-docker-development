@@ -23,8 +23,8 @@ Stop all docker containers or native services on uses ports 80, 443, 3306.
 ### Install
 
 ```
-$ git clone git@github.com:00F100/magento2-docker-install.git
-$ cd magento2-docker-install
+$ git clone git@github.com:mahsn/magento2-docker-development.git
+$ cd magento2-docker-development
 $ make install
 ```
 
@@ -32,8 +32,8 @@ $ make install
 
 ### Store and admin
 
-- Storefront: https://localhost.magento.com
-- Admin: https://localhost.magento.com/admin
+- Storefront: http://localdev.magento23.com 
+- Admin: http://localdev.magento23.com/admin
 - Username: `admin`
 - Password: `123123q`
 
